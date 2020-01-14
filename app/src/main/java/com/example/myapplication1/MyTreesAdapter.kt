@@ -1,23 +1,19 @@
 package com.example.myapplication1
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_tree_main.*
 
 class MyTreesAdapter: RecyclerView.Adapter<MyTreesAdapter.ViewHolder> () {
-
+    var array = intArrayOf()
     private val treeId : ArrayList<String> = ArrayList()
     private val treeName : ArrayList<String> = ArrayList()
     private val treeLocation : ArrayList<String> = ArrayList()
@@ -31,6 +27,7 @@ class MyTreesAdapter: RecyclerView.Adapter<MyTreesAdapter.ViewHolder> () {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.my_tree_layout, viewGroup, false)
 
@@ -52,12 +49,12 @@ class MyTreesAdapter: RecyclerView.Adapter<MyTreesAdapter.ViewHolder> () {
         })
 
 
-
-
         return ViewHolder(v)
 
     }
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+        val context = viewHolder.itemView.context
+        Toast.makeText(context, "Insufficient points!", Toast.LENGTH_LONG).show()
         viewHolder.txttreeId.text = treeId[i]
         viewHolder.txttreeName.text = treeName[i]
         viewHolder.txttreeLocation.text = treeLocation[i]
