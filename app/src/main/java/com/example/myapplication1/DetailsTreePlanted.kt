@@ -1,13 +1,11 @@
 package com.example.myapplication1
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_details_tree_planted.*
 
 
@@ -24,10 +22,24 @@ class DetailsTreePlanted : AppCompatActivity() {
         val intent = intent
         database.child("tree_user").child("$uid").push().key
         val key =database.child("tree_user").child("$uid").push().key
-        textViewId.setText(key)
+        textViewTreeId.setText(key)
         textViewTree.setText(intent.getStringExtra("tree"))
         textViewLocation.setText(intent.getStringExtra("location"))
         imageViewTree.setImageResource(intent.getIntExtra("image",0))
+
+
+        val ref= FirebaseDatabase.getInstance().getReference("users")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot){
+
+                textViewbalancePoint.setText(dataSnapshot.child("$uid").child("total_point_left").getValue().toString())
+
+                }
+            override  fun onCancelled(error: DatabaseError){
+
+            }
+        })
+
 
         buttonHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)/// location activity

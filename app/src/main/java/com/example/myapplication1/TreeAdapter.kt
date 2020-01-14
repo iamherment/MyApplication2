@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.navigationstyle.*
 
 
 class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
-    //not the code below
     private lateinit var database: DatabaseReference
 
 
@@ -68,7 +67,6 @@ class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
                 override fun onDataChange(dataSnapshot: DataSnapshot){
 
                     var point = Integer.valueOf(dataSnapshot.child("$uid").child("total_point_left").getValue().toString())
-                    Toast.makeText(context, "Insufficient points!" + point, Toast.LENGTH_LONG).show()
 
                     if(point >= points[i]){
                         val context = viewHolder.itemView.context
@@ -82,7 +80,7 @@ class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
                         context.startActivity(intent)
                     }
                     else{
-                        
+                        Toast.makeText(context, "Insufficient points!", Toast.LENGTH_LONG).show()
                     }
 
                 }
@@ -99,4 +97,3 @@ class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
         return desc.size
     }
 }
-//////TO DO : minus points
