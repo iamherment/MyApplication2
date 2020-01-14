@@ -1,66 +1,35 @@
 package com.example.myapplication1
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-
-class MyTreesAdapter: RecyclerView.Adapter<MyTreesAdapter.ViewHolder> () {
-    var array = intArrayOf()
-    private val treeId : ArrayList<String> = ArrayList()
-    private val treeName : ArrayList<String> = ArrayList()
-    private val treeLocation : ArrayList<String> = ArrayList()
+import com.example.myapplication1.data.model.TreeUser
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var txttreeId: TextView =itemView.findViewById(R.id.textViewTreeId)
-        var txttreeName: TextView =itemView.findViewById(R.id.textViewTreeName)
-        var txttreeLocation: TextView = itemView.findViewById(R.id.textViewLocation)
+class MyTreesAdapter(c: Context, treeUser: ArrayList<TreeUser>) :
+    RecyclerView.Adapter<TreeUserViewModel>(){
+    var c: Context
+    var treeUser: ArrayList<TreeUser>
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TreeUserViewModel{
+        val v: View = LayoutInflater.from(c).inflate(R.layout.my_tree_layout, parent, false)
+        return TreeUserViewModel(v)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-
-        val v = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.my_tree_layout, viewGroup, false)
-
-        val uid= FirebaseAuth.getInstance().uid
-        val ref= FirebaseDatabase.getInstance().getReference("tree_user")
-
-
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (ds in dataSnapshot.children) {
-                    treeId.add(ds.child("$uid").child("tree_id").getValue().toString())
-                    treeName.add(ds.child("$uid").child("tree_name").getValue().toString())
-                    treeLocation.add(ds.child("$uid").child("location").getValue().toString())
-                }
-            }
-            override  fun onCancelled(error: DatabaseError){
-
-            }
-        })
-
-
-        return ViewHolder(v)
-
-    }
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        val context = viewHolder.itemView.context
-        Toast.makeText(context, "Insufficient points!", Toast.LENGTH_LONG).show()
-        viewHolder.txttreeId.text = treeId[i]
-        viewHolder.txttreeName.text = treeName[i]
-        viewHolder.txttreeLocation.text = treeLocation[i]
+    override fun onBindViewHolder(viewholder: TreeUserViewModel, position: Int) {
+        viewholder.textViewTreeId.setText(treeUser[position].tree_id)
+        viewholder.textViewTreeName.setText(treeUser[position].tree_name)
+        viewholder.textViewLocation.setText(treeUser[position].location)
     }
 
     override fun getItemCount(): Int {
-        return treeId.size
+        return treeUser.size
+    }
+
+    init {
+        this.c = c
+        this.treeUser = treeUser
     }
 }
