@@ -1,5 +1,6 @@
 package com.example.myapplication1
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -54,11 +55,10 @@ class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
         viewHolder.itemImage.setImageResource(images[i])
         viewHolder.itemDesc.text = desc[i]
         viewHolder.itemPoints.setText(points[i].toString())
-
+        val context = viewHolder.itemView.context
 
         viewHolder.itemPoints.setOnClickListener {
-            //viewHolder.itemDesc.text="asd"
-            database = FirebaseDatabase.getInstance().reference
+                        database = FirebaseDatabase.getInstance().reference
             val uid= FirebaseAuth.getInstance().uid
             val ref= FirebaseDatabase.getInstance().getReference("users")
             val context = viewHolder.itemView.context
@@ -68,17 +68,37 @@ class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
 
                     var point = Integer.valueOf(dataSnapshot.child("$uid").child("total_point_left").getValue().toString())
 
-                    if(point >= points[i]){
-                        val context = viewHolder.itemView.context
-                        val intent = Intent(context, DetailsTreePlanted::class.java)/// location activity
-                        intent.putExtra("tree",desc[i])
-                        intent.putExtra("points",points[i])
-                        intent.putExtra("location",locations[i])
-                        intent.putExtra("image",images[i])
-                        val pointLeft = point - points[i]
-                        database.child("users").child("$uid").child("total_point_left").setValue(pointLeft)
-                        context.startActivity(intent)
-                    }
+                    if(point >= points[i]) {
+
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Transaction Confirmation")
+                        builder.setMessage("Are you sure to plant the tree?")
+
+                        builder.setPositiveButton("YES") { dialog, which ->
+
+                            val context = viewHolder.itemView.context
+                            val intent =
+                                Intent(context, DetailsTreePlanted::class.java)/// location activity
+                            intent.putExtra("tree", desc[i])
+                            intent.putExtra("points", points[i])
+                            intent.putExtra("location", locations[i])
+                            intent.putExtra("image", images[i])
+                            val pointLeft = point - points[i]
+                            database.child("users").child("$uid").child("total_point_left")
+                                .setValue(pointLeft)
+                            context.startActivity(intent)
+
+                        }
+                        builder.setNegativeButton("No") { dialog, which ->}
+
+                            builder.setNeutralButton("Cancel") { _, _ -> }
+
+                            val dialog: AlertDialog = builder.create()
+                            dialog.show()
+
+
+                        }
+                    
                     else{
                         Toast.makeText(context, "Insufficient points!", Toast.LENGTH_LONG).show()
                     }
