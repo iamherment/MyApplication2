@@ -22,15 +22,17 @@ class S2login:AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_s2e_wallet_login)
         auth=FirebaseAuth.getInstance()
-        Log.e("tyr","jajajaj")
+
 
 
         login.setOnClickListener { login() }
+        signup.setOnClickListener { val intent=Intent(this,Register::class.java)
+        startActivity(intent)}
 
     }
 
     private fun login(){
-        Log.e("tyr","jajajaj")
+
         if(username.text.toString().isEmpty()){
             username.error="Please enter email "
             username.requestFocus()
@@ -89,16 +91,7 @@ class S2login:AppCompatActivity(){
         }
 
     }
-    private fun saveUSerToFireDatabase(){
-        val uid=FirebaseAuth.getInstance().uid
-        val ref= FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user=User(uid)
-        ref.setValue(user)
-            .addOnSuccessListener {
-                Log.d("save","sucess")
-            }
-    }
 
 
 }

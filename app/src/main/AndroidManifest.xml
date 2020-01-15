@@ -10,12 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
-        <activity android:name=".DetailsTreePlanted"></activity>
+        <activity android:name=".Register"></activity>
+        <activity android:name=".ActivityContent" />
+        <activity android:name=".DetailsTreePlanted" />
         <activity
             android:name=".MainActivity"
             android:label="Login"
             android:parentActivityName=".S2login"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DisplayQRCode"
             android:label="My QR Code"

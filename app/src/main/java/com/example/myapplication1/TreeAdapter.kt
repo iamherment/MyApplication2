@@ -55,7 +55,7 @@ class TreeAdapter:RecyclerView.Adapter<TreeAdapter.ViewHolder>(){
         viewHolder.itemImage.setImageResource(images[i])
         viewHolder.itemDesc.text = desc[i]
         viewHolder.itemPoints.setText(points[i].toString())
-        val context = viewHolder.itemView.context
+
 
         viewHolder.itemPoints.setOnClickListener {
                         database = FirebaseDatabase.getInstance().reference

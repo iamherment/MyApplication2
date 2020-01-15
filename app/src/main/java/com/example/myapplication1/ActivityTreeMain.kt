@@ -22,11 +22,9 @@ class ActivityTreeMain : AppCompatActivity() {
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot){
-                Log.e("try,","dislya")
                 textViewBalance.text=dataSnapshot.child("$uid").child("total_point_left").getValue().toString()
 
 
-                Log.e("try,","dislya")
             }
             override  fun onCancelled(error: DatabaseError){
 

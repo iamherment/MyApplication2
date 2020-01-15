@@ -40,10 +40,27 @@ class VerticalAdapter:RecyclerView.Adapter<VerticalAdapter.ViewHolder> () {
                 val intent = Intent(context, ActivityTreeMain::class.java)
                 context.startActivity(intent)
             }
+            else if(i==1){
+                val content =viewHolder.itemView.context
+                val intent=Intent(content,ActivityContent::class.java)
+                intent.putExtra("EXTRA_MSG",i)
+                content.startActivity(intent)
+            }
+            else if(i==2){
+                val content =viewHolder.itemView.context
+                val intent=Intent(content,ActivityContent::class.java)
+                intent.putExtra("EXTRA_MSG",i)
+                content.startActivity(intent)
+
+
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return desc.size
+    }
+    companion object{
+        const val EXTRA_MSG=".com.example.myapplication1.EXTRA_MSG"
     }
 }
