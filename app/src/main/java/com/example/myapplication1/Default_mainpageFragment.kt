@@ -65,6 +65,14 @@ class Default_mainpageFragment : Fragment() {
             startActivity(intent)
         }
 
+        val buttonPayment: Button = view.findViewById<View>(R.id.buttonPay) as Button
+        buttonPayment.setOnClickListener {
+            val intent = Intent(this.activity, PayPage::class.java)
+            startActivity(intent)
+
+
+
+        }
         /////
         btnScan = view.findViewById<View>(R.id.buttonScan) as Button
         btnScan!!.setOnClickListener { performAction()}

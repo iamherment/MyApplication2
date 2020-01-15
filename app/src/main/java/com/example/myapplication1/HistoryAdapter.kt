@@ -1,44 +1,35 @@
 package com.example.myapplication1
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication1.data.model.Transaction
+import java.text.SimpleDateFormat
+import kotlin.collections.ArrayList
 
-class HistoryAdapter:RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
-
-    private val transcTitle  = arrayOf("Cashback","LRTFU","GrabYou")
-    private val transcDTime = arrayOf("11 March 13:30","19 April 10:00","20 April 15:03")
-    private val transcVal = doubleArrayOf(1.00,5.00,12.00)
-    private  val transcPoints =  intArrayOf(10,50,120)
-
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var itemTitles : TextView =itemView.findViewById(R.id.textViewtitle)
-        var itemDTime: TextView =itemView.findViewById(R.id.textViewDateTime)
-        var itemVal : TextView =itemView.findViewById(R.id.textViewTransValue)
-        var itemPoints : TextView =itemView.findViewById(R.id.textViewTransPoint)
-
-
+class HistoryAdapter(c: Context, transaction: ArrayList<Transaction>) :
+    RecyclerView.Adapter<TransactionViewModel>(){
+    var c: Context
+    var transactions: ArrayList<Transaction>
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewModel{
+        val v: View = LayoutInflater.from(c).inflate(R.layout.listtransaction, parent, false)
+        return TransactionViewModel(v)
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        val v = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.history_display, viewGroup, false)
-        return ViewHolder(v)
-    }
-
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-
-        viewHolder.itemTitles.text = transcTitle[i]
-        viewHolder.itemDTime.text = transcDTime[i]
-        viewHolder.itemVal.text = transcVal[i].toString()
-        viewHolder.itemPoints.text = transcPoints[i].toString()
-
+    override fun onBindViewHolder(holder: TransactionViewModel, position: Int) {
+        holder.textViewRecipient.setText(transactions[position].recipientID)
+        holder.textViewAmount.setText(transactions[position].amount.toString())
+        holder.textViewTime.setText(SimpleDateFormat("DD/MM/yyy").format(transactions[position].createdAt))
     }
 
     override fun getItemCount(): Int {
-        return transcTitle.size
+        return transactions.size
+    }
+
+    init {
+        this.c = c
+        this.transactions = transaction
     }
 }

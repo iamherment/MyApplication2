@@ -1,6 +1,7 @@
 package com.example.myapplication1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             imageButtonProfile.setBackgroundColor(Color.TRANSPARENT)
             imageButtonLeaderboard.setBackgroundColor(Color.TRANSPARENT)
             imageButtonActivity.setBackgroundColor(Color.TRANSPARENT)
+            action_bar_wallet.setBackgroundColor(Color.TRANSPARENT)
             textViewTitle.setText(getResources().getString(R.string.home))
             val newFragment = Default_mainpageFragment()
             val transaction = supportFragmentManager.beginTransaction()
@@ -80,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             imageButtonProfile.setBackgroundColor(Color.TRANSPARENT)
             imageButtonLeaderboard.setBackgroundColor(Color.TRANSPARENT)
             imageButtonActivity.setBackgroundColor(R.color.colorGreen)
+            action_bar_wallet.setBackgroundColor(Color.TRANSPARENT)
             textViewTitle.setText(getResources().getString(R.string.activities))
             val newFragment = TreeActivitiesFragment()
             val transaction = supportFragmentManager.beginTransaction()
@@ -93,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             imageButtonProfile.setBackgroundColor(Color.TRANSPARENT)
             imageButtonLeaderboard.setBackgroundColor(R.color.colorGreen)
             imageButtonActivity.setBackgroundColor(Color.TRANSPARENT)
+            action_bar_wallet.setBackgroundColor(Color.TRANSPARENT)
             textViewTitle.setText(getResources().getString(R.string.leaderBoard))
             val newFragment = LeaderBoardFragment()
             val transaction = supportFragmentManager.beginTransaction()
@@ -105,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             imageButtonProfile.setBackgroundColor(R.color.colorGreen)
             imageButtonLeaderboard.setBackgroundColor(Color.TRANSPARENT)
             imageButtonActivity.setBackgroundColor(Color.TRANSPARENT)
+            action_bar_wallet.setBackgroundColor(Color.TRANSPARENT)
             textViewTitle.setText(getResources().getString(R.string.profile))
             val newFragment = ProfileFragment()
             val transaction = supportFragmentManager.beginTransaction()
@@ -117,6 +122,7 @@ class MainActivity : AppCompatActivity() {
             imageButtonProfile.setBackgroundColor(Color.TRANSPARENT)
             imageButtonLeaderboard.setBackgroundColor(Color.TRANSPARENT)
             imageButtonActivity.setBackgroundColor(Color.TRANSPARENT)
+            action_bar_wallet.setBackgroundColor(Color.TRANSPARENT)
             textViewTitle.setText(getResources().getString(R.string.history))
             val newFragment = HistoryFragment()
             val transaction = supportFragmentManager.beginTransaction()
@@ -124,6 +130,17 @@ class MainActivity : AppCompatActivity() {
             transaction.commit()
         }
 
+        action_bar_wallet.setOnClickListener {
+            imageButtonHomeIn.setBackgroundColor(Color.TRANSPARENT)
+            imageButtonHistory.setBackgroundColor(Color.TRANSPARENT)
+            imageButtonProfile.setBackgroundColor(Color.TRANSPARENT)
+            imageButtonLeaderboard.setBackgroundColor(Color.TRANSPARENT)
+            imageButtonActivity.setBackgroundColor(Color.TRANSPARENT)
+            action_bar_wallet.setBackgroundColor(R.color.colorGreen)
+            textViewTitle.setText("Top Up")
+            val intent= Intent(this,TopUp::class.java)
+            startActivity(intent)
+        }
     }
     }
 

@@ -10,8 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
-        <activity android:name=".Register"></activity>
-        <activity android:name=".ActivityContent" />
+
+        <activity android:name=".Register"
+            android:label="Register"
+            android:parentActivityName=".S2login"
+            android:screenOrientation="portrait" />
         <activity android:name=".DetailsTreePlanted" />
         <activity
             android:name=".MainActivity"
@@ -37,6 +40,21 @@
             android:name=".Tree"
             android:label="Trees"
             android:parentActivityName=".Tree"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PayPage"
+            android:label="Pay"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TopUp"
+            android:label="Top Up"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityContent"
+            android:label="Activities"
+            android:parentActivityName=".ActivityTreeMain"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Profile"

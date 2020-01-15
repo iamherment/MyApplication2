@@ -74,4 +74,8 @@
     <string name="location_">Location:</string>
     <string name="tree_image">Tree image</string>
 
+    <string name="btnPay">Pay</string>
+    <string name="RecipientID">Recipient ID</string>
+    <string name="PayAmount">Amount</string>
+
 </resources>
